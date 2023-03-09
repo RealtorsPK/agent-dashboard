@@ -10,6 +10,6 @@ const AddPropertyFormStructure = ({ children, heading }) => (
       </div>
     </div>
   </div>
-)
+);
 
 export default AddPropertyFormStructure;
