@@ -1,0 +1,1 @@
+export const restrictedRoutesForNav = ['/auth/sign-up', '/auth/sign-in'];
