@@ -11,7 +11,7 @@ const Tbody = ({ children, className }) => <tbody className={`relative ${classNa
 
 const Tr = ({ children, className }) => <tr className={String(className || '')}>{children}</tr>;
 
-const Td = ({ children, className }) => <td className={`p-[10px_10px] text-[rgb(118,118,118)_!important] truncate tracking-[0.3px] border-[0px] text-[12px] ${className || ''}`}>{children}</td>;
+const Td = ({ children, className, title }) => <td className={`p-[10px_10px] text-[rgb(118,118,118)_!important] truncate tracking-[0.3px] border-[0px] text-[12px] ${className || ''}`} title={title}>{children}</td>;
 
 export {
   TableWrap,
