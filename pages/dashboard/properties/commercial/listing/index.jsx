@@ -9,25 +9,35 @@ import { apiInitValues, propertyTabs } from '../../../../../utilities/static-val
 
 import InnerTable from './table';
 
-const RealCommercialProperties = () => {
+const RealResidentialProperties = () => {
   const [properties, setProperties] = useState({ ...apiInitValues });
   const [status, setStatus] = useState('unpublished');
   const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(false);
   const routes = useRouter();
 
   const goToUrl = () => {
     routes.push('/dashboard/properties/commercial/add-property');
   };
 
-  useEffect(() => {
+  const onChangePage = (page) => {
     setLoading(true);
-    setProperties({ ...apiInitValues });
-    fetchRcProperties(`?page=1&pageSize=200&status=${status}`)
+    fetchRcProperties(`?page=${page.selected + 1}&pageSize=200&status=${status}`)
       .then((res) => {
         setProperties(res.data);
         setLoading(false);
       });
-  }, [status]);
+  }
+
+  useEffect(() => {
+    setLoading(true);
+    setProperties({ ...apiInitValues });
+    fetchRcProperties(`?page=1&pageSize=200&status=unpublished`)
+      .then((res) => {
+        setProperties(res.data);
+        setLoading(false);
+      });
+  }, []);
 
   return (
     <div>
@@ -36,23 +46,24 @@ const RealCommercialProperties = () => {
 
       <div className="mb-[10px]">
         <Tabs
-            onChange={setStatus}
-            options={propertyTabs}
-            value={status}
+          onChange={setStatus}
+          options={propertyTabs}
+          value={status}
         />
       </div>
 
       <div className=" bg-white relative">
         <InnerTable
-            data={properties}
-            loading={loading}
+          data={properties}
+          loading={loading}
         />
 
         <div className="absolute pb-[10px] pt-[10px] bottom-0 right-0 left-0 text-center bg-white">
           <span className="inline-block">
             <Pagination
-                pageSize={200}
-                total={properties.total}
+              onChange={onChangePage}
+              pageSize={200}
+              total={properties.total}
             />
           </span>
         </div>
@@ -62,4 +73,4 @@ const RealCommercialProperties = () => {
   );
 };
 
-export default RealCommercialProperties;
+export default RealResidentialProperties;
