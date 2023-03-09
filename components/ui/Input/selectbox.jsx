@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from 'next/image';
 import Select, { components } from 'react-select';
 
 import { arrowDown } from '../../../static-img-urls';
@@ -6,14 +6,20 @@ import { arrowDown } from '../../../static-img-urls';
 const DropdownIndicator = (props) => components.DropdownIndicator && (
   <components.DropdownIndicator {...props}>
     <div className="relative w-[10px] h-[10px] mr-[5px]">
-      <Image alt="Arrow Down" className={`text-text-secondary ${props.selectProps.menuIsOpen && '-rotate-180'} transition ease-in-out duration-300`} layout="fill" priority src={arrowDown.src} />
+      <Image
+          alt="Arrow Down"
+          className={`text-text-secondary ${props.selectProps.menuIsOpen && '-rotate-180'} transition ease-in-out duration-300`}
+          layout="fill"
+          priority
+          src={arrowDown.src}
+      />
     </div>
   </components.DropdownIndicator>
 );
 
 const SelectBox = (props) => {
-  const { placeholder, label, name, onChange, value, options, validation, classes, disabled, isNewOnchange, validationMessage } = props
-  let { style } = props
+  const { placeholder, label, name, onChange, value, options, validation, classes, disabled, isNewOnchange, validationMessage } = props;
+  let { style } = props;
 
   style = {
     bg: '#fff',
@@ -22,7 +28,7 @@ const SelectBox = (props) => {
     height: '44px',
     menuWidth: '100%',
     width: '100%',
-    ...style
+    ...style,
   };
 
   const styling = {
@@ -44,47 +50,50 @@ const SelectBox = (props) => {
       height: style.height,
       width: style.width,
     }),
-    menu: base => ({
+    menu: (base) => ({
       ...base,
       width: style.menuWidth,
     }),
     option: (provided, state) => ({
       ...provided,
-      backgroundColor: state.isSelected ? "#F9FAFB" : undefined,
-      color: state.isSelected ? "#2a2a2a" : undefined,
+      backgroundColor: state.isSelected ? '#F9FAFB' : undefined,
+      color: state.isSelected ? '#2a2a2a' : undefined,
     }),
-  }
+  };
 
   const onChangeFun = (inputName, e) => {
     if (isNewOnchange) {
-      onChange(e, inputName)
-    }
-    else { onChange(inputName, e) }
-  }
+      onChange(e, inputName);
+    } else {
+ onChange(inputName, e);
+}
+  };
 
   return (
     <div>
       {label && <label className="text-text-primary text-[14px] mb-[5px] block">{label}</label>}
       <Select
-        className={`${classes || ''} font-regular text-[14px]`}
-        components={{
+          className={`${classes || ''} font-regular text-[14px]`}
+          components={{
           DropdownIndicator,
-          IndicatorSeparator: () => undefined
+          IndicatorSeparator: () => undefined,
         }}
-        instanceId={name}
-        isDisabled={disabled}
-        name={name}
-        onChange={(e) => { onChangeFun(name, e) }}
-        options={options}
-        placeholder={placeholder}
-        styles={styling}
-        value={value}
+          instanceId={name}
+          isDisabled={disabled}
+          name={name}
+          onChange={(e) => {
+ onChangeFun(name, e);
+}}
+          options={options}
+          placeholder={placeholder}
+          styles={styling}
+          value={value}
       />
 
       {validation ? <p className="text-[10px] text-[#F04438] mb-0 mt-[5px]">{validationMessage || 'Required Field'}</p> : ''}
 
     </div>
-  )
-}
+  );
+};
 
 export default SelectBox;
