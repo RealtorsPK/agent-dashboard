@@ -1,37 +1,37 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
-import { fetchCities } from "../../../Services/cities";
-import { selectBoxOptions } from "../../../utilities/helper-function";
-import { fetchAreas } from "../../../Services/areas";
-import InputField from "../../ui/Input";
-import SelectBox from "../../ui/Input/selectbox";
+import { fetchAreas } from '../../../Services/areas';
+import { fetchCities } from '../../../Services/cities';
+import { selectBoxOptions } from '../../../utilities/helper-function';
+import InputField from '../../ui/Input';
+import SelectBox from '../../ui/Input/selectbox';
 
 const PropertyLocation = ({ formdata, setFormdata, validation }) => {
-  const [cities, setCities] = useState([])
-  const [areas, setAreas] = useState([])
-  const { latitude, longitude, cityId, areaId } = formdata
+  const [cities, setCities] = useState([]);
+  const [areas, setAreas] = useState([]);
+  const { latitude, longitude, cityId, areaId } = formdata;
 
   const onChange = (event, name) => {
-    const newFD = { ...formdata }
+    const newFD = { ...formdata };
 
     if (name === 'cityId') {
       fetchAreas(`?cityId=${event.value}`)
         .then((res) => {
-          setAreas(selectBoxOptions(res.data.items, 'name', 'id'))
-        })
+          setAreas(selectBoxOptions(res.data.items, 'name', 'id'));
+        });
     }
 
-    newFD[name] = event.target ? event.target.value : event
+    newFD[name] = event.target ? event.target.value : event;
 
     setFormdata(newFD);
-  }
+  };
 
   useEffect(() => {
     fetchCities('?all=true')
       .then((res) => {
-        setCities(selectBoxOptions(res.data.items, 'name', 'id'))
+        setCities(selectBoxOptions(res.data.items, 'name', 'id'));
       });
-  }, [])
+  }, []);
 
   return (
     <div>
@@ -40,25 +40,57 @@ const PropertyLocation = ({ formdata, setFormdata, validation }) => {
 
         {/* Bedrooms */}
         <div className="relative z-[10]">
-          <SelectBox isNewOnchange label='City' name='cityId' onChange={onChange} options={cities} placeholder='Select city' validation={validation && !cityId} value={cityId} />
+          <SelectBox
+              isNewOnchange
+              label="City"
+              name="cityId"
+              onChange={onChange}
+              options={cities}
+              placeholder="Select city"
+              validation={validation && !cityId}
+              value={cityId}
+          />
         </div>
 
         {/* baths */}
         <div className="relative z-[9]">
-          <SelectBox isNewOnchange label='Area' name='areaId' onChange={onChange} options={areas} placeholder='Select area' validation={validation && !areaId} value={areaId} />
+          <SelectBox
+              isNewOnchange
+              label="Area"
+              name="areaId"
+              onChange={onChange}
+              options={areas}
+              placeholder="Select area"
+              validation={validation && !areaId}
+              value={areaId}
+          />
         </div>
 
         <div>
-          <InputField label='Latitude' name='latitude' onChange={onChange} placeholder='Enter latitude' validation={validation && !latitude} value={latitude} />
+          <InputField
+              label="Latitude"
+              name="latitude"
+              onChange={onChange}
+              placeholder="Enter latitude"
+              validation={validation && !latitude}
+              value={latitude}
+          />
         </div>
 
         <div>
-          <InputField label='Longitude' name='longitude' onChange={onChange} placeholder='Enter longitude' validation={validation && !longitude} value={longitude} />
+          <InputField
+              label="Longitude"
+              name="longitude"
+              onChange={onChange}
+              placeholder="Enter longitude"
+              validation={validation && !longitude}
+              value={longitude}
+          />
         </div>
       </div>
 
     </div>
-  )
-}
+  );
+};
 
 export default PropertyLocation;
