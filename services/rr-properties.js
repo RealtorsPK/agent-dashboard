@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // Fetch all Properties
-export const fetchResidentialProperties = (query) => axios.get(`${process.env.NEXT_PUBLIC_API_URL}/rr-property/by-agent${query || ''}`);
+export const fetchRrProperties = (query) => axios.get(`${process.env.NEXT_PUBLIC_API_URL}/rr-property/by-agent${query || ''}`);
 
 // Add Property
 export const addRrProperties = (payload) => axios.post(`${process.env.NEXT_PUBLIC_API_URL}/rr-property`, payload);
