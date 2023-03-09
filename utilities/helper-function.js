@@ -120,3 +120,17 @@ export const isYoutubeUrl = (url) => {
   }
   else { return false; }
 };
+
+export const errorMessage = (message = []) => {
+  let returnArray = []
+  if (typeof (message) === 'string') {
+    returnArray.push(message)
+  }
+  else {
+    returnArray = message
+  }
+
+  returnArray.map((errors) => customToast('error', errors, '4000'));
+
+  return returnArray;
+}
