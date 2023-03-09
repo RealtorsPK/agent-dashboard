@@ -1,6 +1,6 @@
 import ReactPaginate from 'react-paginate';
 
-const Pagination = ({ total, pageSize, onPageChange }) => (
+const Pagination = ({ total, pageSize, onChange }) => (
     <ReactPaginate
         activeLinkClassName="text-white bg-background-primary"
         breakLabel="..."
@@ -9,7 +9,7 @@ const Pagination = ({ total, pageSize, onPageChange }) => (
         nextLabel="Next"
         nextLinkClassName="text-text-primary no-underline flex px-[20px] h-[40px] rounded-[4px] bg-[#fff] ml-[5px] mr-[5px] items-center justify-center border-[1px] border-border-primary text-[14px]"
       // renderOnZeroPageCount={null}
-        onPageChange={onPageChange}
+        onPageChange={onChange}
         pageCount={Math.ceil(total / pageSize)}
         pageLinkClassName="flex text-text-primary no-underline w-[40px] h-[40px] rounded-[4px] bg-[#fff] ml-[5px] mr-[5px] items-center justify-center border-[1px] border-border-primary text-[14px]"
         pageRangeDisplayed={pageSize}
