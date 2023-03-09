@@ -9,6 +9,7 @@ module.exports = {
     "import/no-unresolved": "off",
     "brace-style": "off",
     "react/jsx-indent-props": "off",
+    "react/jsx-max-props-per-line": "off",
   },
 };
 

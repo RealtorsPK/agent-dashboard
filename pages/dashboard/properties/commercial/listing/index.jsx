@@ -13,26 +13,39 @@ const RealResidentialProperties = () => {
   const [properties, setProperties] = useState({ ...apiInitValues });
   const [status, setStatus] = useState('unpublished');
   const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState(false);
+  const [page, setPage] = useState(1);
   const routes = useRouter();
 
   const goToUrl = () => {
     routes.push('/dashboard/properties/commercial/add-property');
   };
 
-  const onChangePage = (page) => {
+  const onChangePage = (currentPage) => {
     setLoading(true);
-    fetchRcProperties(`?page=${page.selected + 1}&pageSize=200&status=${status}`)
+    fetchRcProperties(`?page=${currentPage.selected + 1}&pageSize=200&status=${status}`)
       .then((res) => {
+        setPage(currentPage.selected);
         setProperties(res.data);
         setLoading(false);
       });
-  }
+  };
+
+  const onChangeStatus = (value) => {
+    setLoading(true);
+    setProperties({ ...apiInitValues });
+
+    fetchRcProperties(`?page=${page}&pageSize=200&status=${value}`)
+    .then((res) => {
+        setStatus(value);
+        setProperties(res.data);
+        setLoading(false);
+      });
+  };
 
   useEffect(() => {
     setLoading(true);
     setProperties({ ...apiInitValues });
-    fetchRcProperties(`?page=1&pageSize=200&status=unpublished`)
+    fetchRcProperties('?page=1&pageSize=200&status=unpublished')
       .then((res) => {
         setProperties(res.data);
         setLoading(false);
@@ -46,7 +59,7 @@ const RealResidentialProperties = () => {
 
       <div className="mb-[10px]">
         <Tabs
-          onChange={setStatus}
+          onChange={onChangeStatus}
           options={propertyTabs}
           value={status}
         />

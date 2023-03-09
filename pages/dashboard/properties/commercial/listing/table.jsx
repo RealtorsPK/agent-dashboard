@@ -31,7 +31,8 @@ const InnerTable = ({ data, loading }) => (
                 <Td className="truncate max-w-[80px]" title={item.city && item.city.name}>{item.city && item.city.name}</Td>
                 <Td className="truncate max-w-[80px]" title={item.area && item.area.name}>{item.area && item.area.name}</Td>
                 <Td className="truncate max-w-[80px]" title={item.size}>
-                  {item.size} <span className='text-[10px]'>({item.sizeUnit})</span>
+                  {item.size}
+                  <span className="text-[10px] ml-[3px]">{`(${item.sizeUnit})`}</span>
                 </Td>
                 <Td className="truncate max-w-[80px]" title={item.price}>{currencyFormat(item.price)}</Td>
                 <Td className="truncate max-w-[100px]" title={item.address}>{item.address}</Td>
