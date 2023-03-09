@@ -1,54 +1,71 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
-import { defaultPropertyFormValues } from "../../../../../utilities/static-values";
-import InnerForm from "../../../../../components/module/add-property";
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
+
+import { defaultPropertyFormValues } from '../../../../../utilities/static-values';
+import InnerForm from '../../../../../components/module/add-property';
+import { addRcProperties } from '../../../../../services/rc-properties';
+import { addPropertyPayload } from '../../../../../payloads/add-property';
+import { addRrProperties } from '../../../../../services/rr-properties';
+import { customToast, errorMessage } from '../../../../../utilities/helper-function';
 
 const AddProperty = () => {
   const loginUser = useSelector((state) => state.loginDetails.login);
+  const routes = useRouter();
   const [formdata, setFormdata] = useState({ ...defaultPropertyFormValues });
   const [loading, setLoading] = useState(false);
   const [socialLinks, setSocialLinks] = useState([{ url: '' }]);
   const [selectedFeatures, setSelectedFeatures] = useState([]);
 
-
-  const onSubmit = (userId) => {
-    // const loginUserId = userId ? userId : loginUser.id
-
+  const onSubmit = () => {
     setLoading(true);
-    setOpen(false);
 
     // Adding Commercial Property
     if (formdata.propertyType === 'commercial') {
-
       // Add RC Property
-      // addRCProperty(
-      //   addPropertyPayload({
-      //     ...formdata,
-      //     rcAgentId: loginUserId,
-      //     selectedFeatures,
-      //     socialLinks,
-      //   })
-      // )
-      //   .then(() => {
-      //     setLoading(false);
-      //     customToast('success', 'Property added please login into dashboard.', 4000)
-      //     window.open(`${process.env.NEXT_PUBLIC_RCAGENT_DASHBOARD}properties`, '_blank');
-      //     window.open('/commercial', '_self')
-      //   })
-      //   .catch(() => {
-      //     setLoading(false)
-      //   });
+      addRcProperties(
+        addPropertyPayload({
+          ...formdata,
+          rcAgentId: loginUser.id,
+          selectedFeatures,
+          socialLinks,
+        }),
+      ).then(() => {
+        setLoading(false);
+        customToast('success', 'Commercial property added successfully.', 4000);
+        routes.push('/dashboard/properties/commercial/listing');
+      }).catch((error) => {
+        errorMessage(error.response.data.message);
+
+        setLoading(false);
+      });
+    }// Adding Residential Property
+    else if (formdata.propertyType === 'residential') {
+      // Add RR Property
+      addRrProperties(
+        addPropertyPayload({
+          ...formdata,
+          rcAgentId: loginUser.id,
+          selectedFeatures,
+          socialLinks,
+        }),
+      )
+        .then(() => {
+          setLoading(false);
+          customToast('success', 'Residential property added successfully.', 4000);
+          routes.push('/dashboard/properties/residential/listing');
+        })
+        .catch(() => {
+          setLoading(false);
+        });
     }
-
-  }
-
+  };
 
   return (
     <div className="h-[100%] overflow-scroll">
       <InnerForm
         formdata={formdata}
         loading={loading}
-        // loginUserFun={ifUserIsNotLogin}
         onSubmit={onSubmit}
         selectedFeatures={selectedFeatures}
         setFormdata={setFormdata}
@@ -57,7 +74,7 @@ const AddProperty = () => {
         socialLinks={socialLinks}
       />
     </div>
-  )
+  );
 };
 
 export default AddProperty;
