@@ -9,7 +9,7 @@ const DropdownIndicator = (props) => components.DropdownIndicator && (
       <Image
           alt="Arrow Down"
           className={`text-text-secondary ${props.selectProps.menuIsOpen && '-rotate-180'} transition ease-in-out duration-300`}
-          layout="fill"
+          fill
           priority
           src={arrowDown.src}
       />
