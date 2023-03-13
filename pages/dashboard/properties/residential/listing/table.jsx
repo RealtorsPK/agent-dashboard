@@ -3,8 +3,8 @@ import { NoData } from '../../../../../components/ui/no-data';
 import { Table, TableWrap, Tbody, Td, Th, Thead, Tr } from '../../../../../components/ui/table';
 import { currencyFormat } from '../../../../../utilities/helper-function';
 
-const InnerTable = ({ data, loading }) => (
-  <TableWrap className="pb-[60px] h-[calc(100vh-160px)]">
+const InnerTable = ({ data, loading, onEdit }) => (
+  <TableWrap className="pb-[60px] h-[calc(100vh-170px)]">
     <Table>
       <Thead>
         <Tr>
@@ -25,21 +25,18 @@ const InnerTable = ({ data, loading }) => (
           data.items.length ?
             data.items.map((item) => (
               <Tr key={item.id}>
-                <Td className="truncate max-w-[80px]">{item.id}</Td>
-                <Td className="truncate max-w-[100px]">{item.title}</Td>
-                <Td className="truncate max-w-[100px]">{item.category && item.category.name}</Td>
-                <Td className="truncate max-w-[80px]">{item.city && item.city.name}</Td>
-                <Td className="truncate max-w-[80px]">{item.area && item.area.name}</Td>
-                <Td className="truncate max-w-[80px]">
-{item.size}
-{' '}
-{'('}
-{item.sizeUnit}
-{')'}
+                <Td className="truncate max-w-[80px]" title={item.id}>{item.id}</Td>
+                <Td className="truncate max-w-[100px]" title={item.title}>{item.title}</Td>
+                <Td className="truncate max-w-[100px]" title={item.category && item.category.name}>{item.category && item.category.name}</Td>
+                <Td className="truncate max-w-[80px]" title={item.city && item.city.name}>{item.city && item.city.name}</Td>
+                <Td className="truncate max-w-[80px]" title={item.area && item.area.name}>{item.area && item.area.name}</Td>
+                <Td className="truncate max-w-[80px]" title={item.size}>
+                  {item.size}
+                  <span className="text-[10px] ml-[3px]">{`(${item.sizeUnit})`}</span>
                 </Td>
-                <Td className="truncate max-w-[80px]">{currencyFormat(item.price)}</Td>
-                <Td className="truncate max-w-[100px]">{item.address}</Td>
-                <Td className="truncate max-w-[80px]">{item.status}</Td>
+                <Td className="truncate max-w-[80px]" title={item.price}>{currencyFormat(item.price)}</Td>
+                <Td className="truncate max-w-[100px]" title={item.address}>{item.address}</Td>
+                <Td className="truncate max-w-[80px]" title={item.status}><button onClick={() => onEdit(item.id)} type="button">{'Edit'}</button></Td>
               </Tr>
             ))
             : undefined
@@ -47,11 +44,12 @@ const InnerTable = ({ data, loading }) => (
       </Tbody>
     </Table>
     {
-      data.items.length <= 0 && loading ?
+      loading ?
         <div className="text-center mt-[50px]">
           <Loader />
         </div>
         :
+        !loading && data.items.length <= 0 &&
         <div className="text-center mt-[50px]">
           <NoData />
         </div>
