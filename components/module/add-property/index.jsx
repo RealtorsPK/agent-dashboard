@@ -51,6 +51,7 @@ const InnerForm = ({ onSubmit, loading, formdata, setFormdata, socialLinks, setS
           <PropertyDetails
               formdata={formdata}
               setFormdata={setFormdata}
+              setSelectedFeatures={setSelectedFeatures}
               validation={validation}
           />
         </AddPropertyFormStructure>
