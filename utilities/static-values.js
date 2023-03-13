@@ -48,17 +48,24 @@ export const tabs = [
 
 
 export const baths = [
-  { label: '1 Bath', value: '1' },
-  { label: '2 Baths', value: '2' },
-  { label: '3 Baths', value: '3' },
-  { label: '4 Baths', value: '4' },
-  { label: '5 Baths', value: '5' },
+  { label: '1 Bath', value: 1 },
+  { label: '2 Baths', value: 2 },
+  { label: '3 Baths', value: 3 },
+  { label: '4 Baths', value: 4 },
+  { label: '5 Baths', value: 5 },
 ]
 
 export const bedrooms = [
-  { label: '1 Bed', value: '1' },
-  { label: '2 Beds', value: '2' },
-  { label: '3 Beds', value: '3' },
-  { label: '4 Beds', value: '4' },
-  { label: '5 Beds', value: '5' },
+  { label: '1 Bed', value: 1 },
+  { label: '2 Beds', value: 2 },
+  { label: '3 Beds', value: 3 },
+  { label: '4 Beds', value: 4 },
+  { label: '5 Beds', value: 5 },
+]
+
+export const removeAddPropButtonOn = [
+  '/dashboard/properties/add-residential-property',
+  '/dashboard/properties/edit-residential-property',
+  '/dashboard/properties/add-commercial-property',
+  '/dashboard/properties/edit-commercial-property'
 ]
