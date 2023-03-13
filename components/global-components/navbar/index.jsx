@@ -1,32 +1,33 @@
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { arrowDown, loginUserIcon } from '../../../static-img-urls';
 import { resizeImageUrl } from '../../../utilities/helper-function';
+import { removeAddPropButtonOn } from '../../../utilities/static-values';
 import NavDropdown from '../../ui/nav-drop-down';
 
 const Navbar = () => {
   const { loginDetails } = useSelector((state) => state);
+  const routes = useRouter();
   const [open, setOpen] = useState(false);
 
+  const redirectTo = () => {
+    const path = routes.asPath.includes('/residential/') ? 'add-residential-property' : 'add-commercial-property';
+
+    routes.push(`/dashboard/properties/${path}`);
+  };
+
   return (
-    <div className="bg-white shadow-[rgb(0_0_0_/_5%)_9px_0px_5px_1px] relative py-[10px] px-[20px] z-[25]">
-
-      {/* Logo Image */}
-      <span className="relative w-[156px] h-[27px] inline-block">
-        <Image
-          alt="Logo Image"
-          fill
-          priority
-          sizes="156px"
-          src="https://dev.realtorspk.com/commercial/_next/static/media/logo.c8203836.svg"
-        />
-      </span>
-
+    <div className="bg-white border-b-[1px] relative py-[11.5px] px-[20px] z-[25] flex justify-end gap-[20px]">
+      {
+        !removeAddPropButtonOn.includes(routes.asPath) &&
+        <button className="bg-background-primary text-white p-[8px_18px] rounded-[6px] text-[14px]" onClick={() => redirectTo()} type="button">{'Add Property'}</button>
+      }
       {/* Login Right side  */}
       {loginDetails.login &&
-        <span className="inline-block absolute right-[20px] top-[6px]">
+        <span className="relative">
           <button
             className="border-[1px] text-left border-border-primary inline-block py-[7px] px-[7px] rounded-[5px] cursor-pointer"
             onClick={() => setOpen(!open)}
