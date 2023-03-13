@@ -26,7 +26,7 @@ const FileInput = ({ buttonLabel, label, multi, onChange, name, index, value, va
             <span className="inline-block relative h-[11.67px] w-[11.67px]">
               <Image
                   alt="Plus Icon"
-                  layout="fill"
+                  fill
                   src={plusIcon}
               />
             </span>
