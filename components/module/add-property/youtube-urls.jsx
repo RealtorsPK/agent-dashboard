@@ -75,7 +75,7 @@ const YoutubeUrls = ({ setSocialLinks, links }) => {
                   <span className="relative inline-block w-[15px] h-[16px]">
                     <Image
                         alt="Icon"
-                        layout="fill"
+                        fill
                         src={trash}
                     />
                   </span>
