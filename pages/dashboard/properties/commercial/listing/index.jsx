@@ -17,7 +17,7 @@ const RealResidentialProperties = () => {
   const routes = useRouter();
 
   const goToUrl = () => {
-    routes.push('/dashboard/properties/commercial/add-property');
+    routes.push('/dashboard/properties/add-commercial-property');
   };
 
   const onChangePage = (currentPage) => {
@@ -35,11 +35,15 @@ const RealResidentialProperties = () => {
     setProperties({ ...apiInitValues });
 
     fetchRcProperties(`?page=${page}&pageSize=200&status=${value}`)
-    .then((res) => {
+      .then((res) => {
         setStatus(value);
         setProperties(res.data);
         setLoading(false);
       });
+  };
+
+  const onEdit = (id) => {
+    routes.push(`/dashboard/properties/edit-commercial-property?id=${id}`);
   };
 
   useEffect(() => {
@@ -69,6 +73,7 @@ const RealResidentialProperties = () => {
         <InnerTable
           data={properties}
           loading={loading}
+          onEdit={onEdit}
         />
 
         <div className="absolute pb-[10px] pt-[10px] bottom-0 right-0 left-0 text-center bg-white">
