@@ -3,8 +3,8 @@ import { NoData } from '../../../../../components/ui/no-data';
 import { Table, TableWrap, Tbody, Td, Th, Thead, Tr } from '../../../../../components/ui/table';
 import { currencyFormat } from '../../../../../utilities/helper-function';
 
-const InnerTable = ({ data, loading }) => (
-  <TableWrap className="pb-[60px] h-[calc(100vh-160px)]">
+const InnerTable = ({ data, loading, onEdit }) => (
+  <TableWrap className="pb-[60px] h-[calc(100vh-170px)]">
     <Table>
       <Thead>
         <Tr>
@@ -36,7 +36,7 @@ const InnerTable = ({ data, loading }) => (
                 </Td>
                 <Td className="truncate max-w-[80px]" title={item.price}>{currencyFormat(item.price)}</Td>
                 <Td className="truncate max-w-[100px]" title={item.address}>{item.address}</Td>
-                <Td className="truncate max-w-[80px]" title={item.status}>{item.status}</Td>
+                <Td className="truncate max-w-[80px]" title={item.status}><button onClick={() => onEdit(item.id)} type="button">{'Edit'}</button></Td>
               </Tr>
             ))
             : undefined
