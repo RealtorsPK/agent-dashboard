@@ -114,6 +114,12 @@ export const selectBoxOptions = (array, labelName, valueName) => {
   return returnArray;
 };
 
+export const selectBoxSelectedOption = (array, findById, labelName, valueName) => {
+  let obj = array && array.length > 0 && array.find((item) => { return item[valueName] === findById })
+  obj = array && array.length > 0 && obj ? { label: obj[labelName], value: obj[valueName] } : null
+  return obj
+}
+
 export const isYoutubeUrl = (url) => {
   if (!url.search("http://www.youtube.com/") || !url.search("https://www.youtube.com/")) {
     return true;
@@ -133,4 +139,9 @@ export const errorMessage = (message = []) => {
   returnArray.map((errors) => customToast('error', errors, '4000'));
 
   return returnArray;
+}
+
+export const pickImgByType = (imgArray = Array, type = String) => {
+  let image = imgArray && imgArray.length > 0 ? imgArray.filter((item) => { return item.type === type }) : null
+  return image && image.length > 0 ? image : []
 }
