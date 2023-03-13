@@ -28,10 +28,9 @@ const Aminities = ({ selectedFeatures, setSelectedFeatures, categoryId }) => {
       fetchFeatures(`?categoryId=${categoryId}`)
         .then((res) => {
           setAmenities(res.data);
-          setSelectedFeatures([]);
         });
     }
-  }, [categoryId, setSelectedFeatures]);
+  }, [categoryId]);
 
   return (
     <div className="flex flex-wrap gap-[16px]">
